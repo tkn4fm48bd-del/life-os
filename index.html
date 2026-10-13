@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#111827">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="LIFE OS">
+<link rel="manifest" href="manifest.json">
+<title>LIFE OS · 갓생 관리</title>
+<style>
+:root{--bg:#0b1020;--panel:#151d30;--panel2:#1b263b;--line:#2a3650;--text:#eef2ff;--muted:#9aa8c3;--accent:#9ce6c0;--accent2:#b9c8ff;--warn:#ffd58b;--radius:20px}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at top,#182440 0,#0b1020 48%);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;padding:env(safe-area-inset-top) 14px calc(24px + env(safe-area-inset-bottom));}
+button,input,textarea,select{font:inherit}button{cursor:pointer;border:0}
+.app{max-width:760px;margin:0 auto}.top{display:flex;justify-content:space-between;align-items:center;padding:22px 2px 16px}.eyebrow{font-size:11px;letter-spacing:2px;color:var(--accent);font-weight:800}.title{font-size:27px;font-weight:850;letter-spacing:-1px;margin:4px 0}.sub{font-size:12px;color:var(--muted)}.pill{border:1px solid var(--line);border-radius:99px;padding:8px 11px;font-size:11px;color:var(--muted);background:#121a2b}
+.nav{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;padding:5px;background:#10182a;border:1px solid var(--line);border-radius:15px;margin-bottom:14px}.nav button{padding:11px 3px;border-radius:11px;background:transparent;color:var(--muted);font-size:12px;font-weight:700}.nav button.active{background:var(--accent);color:#102018}
+.page{display:none}.page.active{display:block}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.card{background:linear-gradient(145deg,rgba(27,38,59,.98),rgba(19,28,46,.98));border:1px solid var(--line);border-radius:var(--radius);padding:16px;margin-bottom:11px;min-width:0}.card h2,.card h3{margin:0 0 10px;font-size:15px}.muted{color:var(--muted)}.tiny{font-size:11px;color:var(--muted)}.big{font-size:28px;font-weight:850;letter-spacing:-1px}.accent{color:var(--accent)}.progress{height:8px;border-radius:99px;background:#2a3650;overflow:hidden;margin-top:11px}.progress>div{height:100%;background:linear-gradient(90deg,#8ce0b7,#c3f5d8);width:0%;border-radius:99px;transition:width .2s}.sectionhead{display:flex;justify-content:space-between;align-items:center;margin:18px 2px 9px}.sectionhead h2{font-size:15px;margin:0}.routine{padding:14px 14px 12px}.routine-head{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:8px}.time{font-size:11px;color:var(--accent);font-weight:800;letter-spacing:.3px}.routine h3{margin:4px 0 0;font-size:15px}.items{display:grid;gap:8px}.check{display:flex;align-items:flex-start;gap:10px;font-size:13px;line-height:1.4;color:#dbe4f8}.check input{appearance:none;flex:0 0 19px;width:19px;height:19px;margin:0;border:1.5px solid #60708e;border-radius:6px;background:#10182a;position:relative}.check input:checked{background:var(--accent);border-color:var(--accent)}.check input:checked:after{content:"✓";position:absolute;color:#12251c;font-weight:900;font-size:14px;left:3px;top:-1px}.check input:checked+span{text-decoration:line-through;color:#8190aa}.row{display:flex;gap:8px;align-items:center}.between{justify-content:space-between}.btn{background:var(--accent);color:#102018;font-weight:800;border-radius:12px;padding:11px 14px;font-size:12px}.btn.secondary{background:#25314a;color:var(--text);border:1px solid var(--line)}.btn.ghost{background:transparent;color:var(--muted);border:1px solid var(--line)}.btn.small{padding:8px 10px}.full{width:100%}.field{width:100%;background:#0e1628;border:1px solid var(--line);color:var(--text);padding:12px;border-radius:12px;outline:none}.field:focus{border-color:var(--accent)}textarea.field{resize:vertical;min-height:105px}.timer{text-align:center;padding:22px 10px}.clock{font-size:46px;font-weight:850;letter-spacing:-2px;font-variant-numeric:tabular-nums;margin:14px 0}.timerlabel{font-size:12px;color:var(--muted)}.stat{padding:14px}.stat .big{font-size:24px}.barlist{display:grid;gap:11px}.barrow{display:grid;grid-template-columns:84px 1fr 34px;gap:8px;align-items:center;font-size:11px;color:var(--muted)}.bar{height:8px;background:#2a3650;border-radius:99px;overflow:hidden}.bar span{display:block;height:100%;background:var(--accent2);border-radius:99px}.daydots{display:grid;grid-template-columns:repeat(7,1fr);gap:5px;margin-top:10px}.daydot{text-align:center;border-radius:10px;background:#111a2b;padding:8px 2px;border:1px solid var(--line);font-size:10px;color:var(--muted)}.daydot b{display:block;color:var(--text);font-size:12px;margin-bottom:4px}.daydot.done{border-color:#4b9477;background:#17372c}.notice{font-size:11px;color:var(--muted);line-height:1.5;padding:2px 2px 10px}.toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom));transform:translate(-50%,20px);opacity:0;background:#e0f8eb;color:#102018;border-radius:99px;padding:11px 16px;font-size:12px;font-weight:800;transition:.2s;pointer-events:none;z-index:5}.toast.show{opacity:1;transform:translate(-50%,0)}.empty{font-size:12px;color:var(--muted);padding:14px;text-align:center}
+@media(min-width:600px){.grid.statsgrid{grid-template-columns:repeat(4,minmax(0,1fr))}.routinesgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 10px}.routinesgrid .card{height:max-content}}
+</style>
+</head>
+<body><div class="app">
+<header class="top"><div><div class="eyebrow">PERSONAL OPERATING SYSTEM</div><div class="title">LIFE OS<span class="accent">.</span></div><div class="sub">오늘을 정돈하고, 내일을 가볍게.</div></div><div class="pill" id="daysLeft">D-35</div></header>
+<nav class="nav">
+<button class="active" data-page="today">오늘</button><button data-page="timer">타이머</button><button data-page="stats">대시보드</button><button data-page="settings">설정</button>
+</nav>
+<main>
+<section id="page-today" class="page active">
+<div class="grid statsgrid">
+<div class="card stat"><div class="tiny">오늘 진행률</div><div class="big" id="progressNum">0%</div><div class="progress"><div id="progressBar"></div></div></div>
+<div class="card stat"><div class="tiny">연속 실천일</div><div class="big"><span id="streakNum">0</span><span class="tiny"> days</span></div><div class="tiny">하루 하나씩 쌓기</div></div>
+</div>
+<div class="card"><div class="row between"><div><div class="tiny" id="dateLabel">오늘의 루틴</div><h2 style="margin:4px 0">작게 해도, 완료는 완료.</h2></div><button class="btn secondary small" id="resetDay">오늘 초기화</button></div><div class="progress"><div id="heroBar"></div></div><div class="row between" style="margin-top:8px"><span class="tiny" id="checkedLabel">0개 완료</span><span class="tiny" id="remainingLabel">남은 기간 계산 중</span></div></div>
+<div class="sectionhead"><h2>시간대별 루틴</h2><span class="tiny">공부 체크 제외 · 생활 관리 중심</span></div>
+<div class="routinesgrid" id="routineList"></div>
+<div class="sectionhead"><h2>오늘의 기록</h2><span class="tiny">기분·컨디션·한 줄 기록</span></div>
+<div class="card"><label class="tiny" for="mood">오늘 컨디션</label><select class="field" id="mood" style="margin:7px 0 12px"><option value="">선택하기</option><option>🌟 아주 좋음</option><option>🙂 괜찮음</option><option>😐 평범함</option><option>😮‍💨 피곤함</option><option>🫠 많이 지침</option></select><label class="tiny" for="dailyNote">오늘 기록</label><textarea class="field" id="dailyNote" placeholder="오늘 잘한 것, 내일 신경 쓸 것, 기억하고 싶은 순간…"></textarea><button class="btn full" id="saveNote" style="margin-top:10px">오늘 기록 저장</button></div>
+</section>
+<section id="page-timer" class="page">
+<div class="card timer"><div class="eyebrow">FOCUS YOUR FREE TIME</div><h2 id="timerTitle" style="margin-top:8px">자유시간 타이머</h2><div class="timerlabel" id="timerDescription">독서실 출발 전까지 즐겁게 쉬기</div><div class="clock" id="clock">00:30:00</div><div class="row" style="justify-content:center;flex-wrap:wrap"><button class="btn" id="startTimer">시작</button><button class="btn secondary" id="pauseTimer">일시정지</button><button class="btn ghost" id="resetTimer">초기화</button></div></div>
+<div class="card"><h2>타이머 선택</h2><div class="grid"><button class="btn secondary" data-timer="free">평일 자유시간</button><button class="btn secondary" data-timer="game">일요일 게임</button><button class="btn secondary" data-minutes="15">15분 쉬기</button><button class="btn secondary" data-minutes="30">30분 쉬기</button></div><p class="notice" style="margin-top:12px">평일 자유시간은 하교 후부터 독서실 출발 전까지. 출발 시간은 설정에서 바꿀 수 있어. 일요일 게임 기본 시간은 14:00–16:00이며, 타이머는 앱을 열어 둔 상태에서 정확히 작동해.</p></div>
+<div class="card"><h2>자유시간 설정</h2><label class="tiny" for="studyLeave">평일 독서실 출발 시간</label><input class="field" type="time" id="studyLeave" value="18:40" style="margin:7px 0 12px"><button class="btn full" id="saveLeave">출발 시간 저장</button></div>
+</section>
+<section id="page-stats" class="page">
+<div class="sectionhead"><h2>자기관리 대시보드</h2><span class="tiny" id="statsRange">이번 주</span></div>
+<div class="grid statsgrid">
+<div class="card stat"><div class="tiny">평균 진행률</div><div class="big" id="avgProgress">0%</div></div>
+<div class="card stat"><div class="tiny">루틴 완료 수</div><div class="big" id="totalChecks">0</div></div>
+<div class="card stat"><div class="tiny">기록한 날</div><div class="big" id="recordDays">0</div></div>
+<div class="card stat"><div class="tiny">남은 일수</div><div class="big" id="daysRemainStat">0</div></div>
+</div>
+<div class="card"><h2>최근 7일 진행률</h2><div class="barlist" id="weekBars"></div><div class="daydots" id="weekDots"></div></div>
+<div class="card"><h2>이번 주 돌아보기</h2><p class="tiny" style="line-height:1.6">완벽한 하루보다 다시 돌아오는 습관이 중요해. 체크를 못 한 날은 실패가 아니라 다음 루틴을 더 쉽게 만들 힌트야.</p><label class="tiny" for="weeklyNote">주간 메모</label><textarea class="field" id="weeklyNote" placeholder="이번 주 잘된 것 / 다음 주 바꿀 것"></textarea><button class="btn full" id="saveWeekly" style="margin-top:10px">주간 메모 저장</button></div>
+</section>
+<section id="page-settings" class="page">
+<div class="card"><h2>기본 일정</h2><p class="notice">시간은 루틴 카드에 표시되는 기준이야. 기상·학교·취침 시간을 바꾸면 해당 루틴 카드도 업데이트돼.</p><div class="grid">
+<div><label class="tiny">기상</label><input class="field sched" id="wake" type="time" value="06:40"></div>
+<div><label class="tiny">학교 출발</label><input class="field sched" id="leaveSchool" type="time" value="07:40"></div>
+<div><label class="tiny">학교 도착 목표</label><input class="field sched" id="arriveSchool" type="time" value="08:00"></div>
+<div><label class="tiny">하교</label><input class="field sched" id="dismiss" type="time" value="17:40"></div>
+<div><label class="tiny">취침</label><input class="field sched" id="bedtime" type="time" value="00:00"></div>
+<div><label class="tiny">일요일 게임 시작</label><input class="field sched" id="gameStart" type="time" value="14:00"></div>
+<div><label class="tiny">일요일 게임 종료</label><input class="field sched" id="gameEnd" type="time" value="16:00"></div>
+</div><button class="btn full" id="saveSchedule" style="margin-top:12px">일정 저장</button></div>
+<div class="card"><h2>관리 기간</h2><div class="row between"><div><div class="tiny">종료일</div><div style="font-weight:800;margin-top:4px">2026년 11월 18일</div></div><div class="pill">고정 설정</div></div><div class="progress"><div id="periodBar"></div></div><div class="tiny" id="periodText" style="margin-top:8px"></div></div>
+<div class="card"><h2>데이터 관리</h2><p class="notice">기록은 이 기기의 브라우저 저장공간에 저장돼. 브라우저 데이터 삭제·기기 변경 시 사라질 수 있으니 가끔 백업해 둬.</p><div class="row"><button class="btn secondary full" id="exportData">기록 백업</button><button class="btn ghost full" id="importBtn">백업 불러오기</button><input type="file" id="importFile" accept="application/json" hidden></div><button class="btn ghost full" id="clearAll" style="margin-top:9px">모든 데이터 삭제</button></div>
+<div class="notice">iPhone 설치: 웹에 배포한 주소를 Safari로 열기 → 공유 버튼 → ‘홈 화면에 추가’. 설치 후에도 데이터는 이 기기 안에 저장돼.</div>
+</section>
+</main><div class="toast" id="toast"></div>
+</div>
+<script>
+const END_DATE='2026-11-18';
+const defaultSchedule={wake:'06:40',leaveSchool:'07:40',arriveSchool:'08:00',dismiss:'17:40',bedtime:'00:00',studyLeave:'18:40',gameStart:'14:00',gameEnd:'16:00'};
+const routines=[
+{id:'morning',title:'기상 · 아침 정돈',timeKey:'wake',items:['알람 끄고 일어나 커튼 열기','침대 정돈하고 물 한 컵 마시기','세안 후 보습제 바르기','불소 치약으로 2분 양치','머리 정돈 · 깨끗한 옷 입기','아침 식사 챙기기']},
+{id:'leave',title:'학교 출발 전',timeKey:'leaveSchool',items:['가방·필통·시간표 확인','휴대폰 · 지갑 · 교통카드 확인','이어폰·충전기·열쇠 확인','물병·우산·겉옷 확인','화장실 다녀오고 손 씻기','전등·전자기기·문 잠금 확인']},
+{id:'arrival',title:'학교 도착',timeKey:'arriveSchool',items:['가방과 겉옷 정리','책상 주변과 쓰레기 정돈','오늘 필요한 준비물 꺼내기','물병 채우기 · 손 씻기','자세 바로 하고 어깨 가볍게 풀기']},
+{id:'school',title:'학교 생활 중',timeKey:'dismiss',items:['식사 전 손 씻기','점심 후 양치 또는 입 헹구기','물 자주 마시기','오래 앉아 있으면 잠깐 움직이기','쓰레기와 주변 자리 정돈']},
+{id:'after',title:'하교 · 귀가 후',timeKey:'dismiss',items:['소지품 · 공지 · 제출물 확인','손 씻고 편한 옷으로 갈아입기','물병·도시락통 비우고 세척','땀 났으면 샤워하고 발까지 씻기','피부 상태에 맞게 보습하기']},
+{id:'night',title:'취침 전 마무리',timeKey:'bedtime',items:['내일 입을 옷과 가방 준비','날씨·알람 확인','세안 후 보습하기','치실 또는 치간 관리 후 2분 양치','수건·옷 정리하고 방 조명 낮추기','휴대폰 내려놓고 잠자리 준비']},
+{id:'weekly',title:'주간 리셋',timeKey:'weekly',weekly:true,items:['손톱 확인·필요할 때 정리','수건·베개 커버 세탁 확인','가방·필통·신발 정리','방과 책상 10분 정돈','세면·위생용품 재고 확인','수면·피로도와 다음 주 일정 점검']}
+];
+const $=id=>document.getElementById(id);
+const dateKey=(d=new Date())=>`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+const dayNames=['일','월','화','수','목','금','토'];
+let data=loadData(),timer={total:1800,remaining:1800,interval:null,running:false,kind:'free'};
+function loadData(){try{return JSON.parse(localStorage.getItem('lifeos-v1'))||{days:{},schedule:defaultSchedule,weeklyNotes:{}}}catch(e){return {days:{},schedule:defaultSchedule,weeklyNotes:{}}}}
+function persist(){localStorage.setItem('lifeos-v1',JSON.stringify(data))}
+function ensureDay(k=dateKey()){if(!data.days[k])data.days[k]={checks:{},mood:'',note:''};return data.days[k]}
+function schedule(){return {...defaultSchedule,...data.schedule}}
+function fmtTime(t){return t==='weekly'?'주 1회':t||'시간 미정'}
+function formatDuration(n){n=Math.max(0,Math.floor(n));return [Math.floor(n/3600),Math.floor(n%3600/60),n%60].map(v=>String(v).padStart(2,'0')).join(':')}
+function escapeHtml(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function countDay(k){let day=data.days[k];if(!day)return {done:0,total:routines.reduce((a,r)=>a+r.items.length,0),pct:0};let total=routines.reduce((a,r)=>a+r.items.length,0),done=Object.values(day.checks||{}).filter(Boolean).length;return {done,total,pct:Math.round(done/total*100)}}
+function renderRoutines(){let day=ensureDay(),sch=schedule();$('routineList').innerHTML=routines.map(r=>{let time=r.weekly?'주 1회':(r.id==='leave'?sch.leaveSchool:r.id==='arrival'?sch.arriveSchool:r.id==='school'?`${sch.arriveSchool}–${sch.dismiss}`:r.id==='after'?`${sch.dismiss} 이후`:r.id==='night'?sch.bedtime:sch[r.timeKey]);return `<div class="card routine"><div class="routine-head"><div><div class="time">${time}</div><h3>${r.title}</h3></div><span class="tiny" id="count-${r.id}"></span></div><div class="items">${r.items.map((it,i)=>{let id=r.id+'-'+i;return `<label class="check"><input type="checkbox" data-check="${id}" ${day.checks[id]?'checked':''}><span>${it}</span></label>`}).join('')}</div></div>`}).join('');
+document.querySelectorAll('[data-check]').forEach(el=>el.addEventListener('change',()=>{ensureDay().checks[el.dataset.check]=el.checked;persist();renderAll()}));
+routines.forEach(r=>{let n=r.items.filter((_,i)=>day.checks[r.id+'-'+i]).length;$('count-'+r.id).textContent=`${n}/${r.items.length}`})}
+function streak(){let n=0,d=new Date();for(let i=0;i<400;i++){let k=dateKey(d),c=countDay(k);if(c.pct>=50){n++;d.setDate(d.getDate()-1)}else{if(i===0){d.setDate(d.getDate()-1);continue}break}}return n}
+function daysLeft(){let end=new Date(END_DATE+'T00:00:00'),now=new Date();now.setHours(0,0,0,0);return Math.max(0,Math.ceil((end-now)/86400000))}
+function renderToday(){let c=countDay(),day=ensureDay();$('progressNum').textContent=c.pct+'%';$('progressBar').style.width=c.pct+'%';$('heroBar').style.width=c.pct+'%';$('checkedLabel').textContent=`${c.done}/${c.total}개 완료`; $('remainingLabel').textContent=`종료일까지 ${daysLeft()}일`;$('streakNum').textContent=streak();$('dateLabel').textContent=new Date().toLocaleDateString('ko-KR',{month:'long',day:'numeric',weekday:'long'});$('mood').value=day.mood||'';$('dailyNote').value=day.note||''}
+function renderStats(){let arr=[];for(let i=6;i>=0;i--){let d=new Date();d.setDate(d.getDate()-i);let k=dateKey(d);arr.push({k,d,p:countDay(k).pct,done:countDay(k).done,has:!!(data.days[k]&&(data.days[k].note||data.days[k].mood||Object.values(data.days[k].checks||{}).some(Boolean)))})}
+$('avgProgress').textContent=Math.round(arr.reduce((a,x)=>a+x.p,0)/7)+'%';$('totalChecks').textContent=arr.reduce((a,x)=>a+x.done,0);$('recordDays').textContent=arr.filter(x=>x.has).length;$('daysRemainStat').textContent=daysLeft();
+$('weekBars').innerHTML=arr.map(x=>`<div class="barrow"><span>${dayNames[x.d.getDay()]} · ${x.d.getMonth()+1}/${x.d.getDate()}</span><div class="bar"><span style="width:${x.p}%"></span></div><b>${x.p}%</b></div>`).join('');
+$('weekDots').innerHTML=arr.map(x=>`<div class="daydot ${x.p>=50?'done':''}"><b>${dayNames[x.d.getDay()]}</b>${x.p}%</div>`).join('');
+let monday=new Date();monday.setDate(monday.getDate()-((monday.getDay()+6)%7));let wk=dateKey(monday);$('weeklyNote').value=data.weeklyNotes[wk]||''}
+function renderPeriod(){let start=new Date('2026-10-14T00:00:00'),end=new Date(END_DATE+'T00:00:00'),now=new Date();now.setHours(0,0,0,0);let total=Math.round((end-start)/86400000)+1,elapsed=Math.min(total,Math.max(0,Math.round((now-start)/86400000)+1));$('periodBar').style.width=(elapsed/total*100)+'%';$('periodText').textContent=`전체 ${total}일 중 ${elapsed}일째 · ${daysLeft()}일 남음`;$('daysLeft').textContent='D-'+daysLeft()}
+function renderAll(){renderRoutines();renderToday();renderStats();renderPeriod();let sch=schedule();['wake','leaveSchool','arriveSchool','dismiss','bedtime','gameStart','gameEnd'].forEach(k=>{if($(k))$(k).value=sch[k]});$('studyLeave').value=sch.studyLeave}
+function toast(s){let t=$('toast');t.textContent=s;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),1800)}
+document.querySelectorAll('.nav button').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('.nav button').forEach(x=>x.classList.toggle('active',x===b));document.querySelectorAll('.page').forEach(x=>x.classList.toggle('active',x.id==='page-'+b.dataset.page));if(b.dataset.page==='timer')updateClock()}));
+$('saveNote').onclick=()=>{let d=ensureDay();d.mood=$('mood').value;d.note=$('dailyNote').value;persist();renderAll();toast('오늘 기록을 저장했어')};
+$('resetDay').onclick=()=>{if(confirm('오늘 체크리스트를 초기화할까? 기록과 기분은 유지돼.')){ensureDay().checks={};persist();renderAll();toast('오늘 체크리스트 초기화 완료')}};
+$('saveSchedule').onclick=()=>{['wake','leaveSchool','arriveSchool','dismiss','bedtime','gameStart','gameEnd'].forEach(k=>data.schedule[k]=$(k).value||defaultSchedule[k]);persist();renderAll();toast('일정 저장 완료')};
+$('saveLeave').onclick=()=>{data.schedule.studyLeave=$('studyLeave').value||'18:40';persist();renderAll();toast('독서실 출발 시간 저장')};
+$('saveWeekly').onclick=()=>{let d=new Date();d.setDate(d.getDate()-((d.getDay()+6)%7));data.weeklyNotes[dateKey(d)]=$('weeklyNote').value;persist();toast('주간 메모 저장 완료')};
+function setTimer(seconds,kind,title,desc){pauseTimer();timer.kind=kind;timer.total=seconds;timer.remaining=seconds;$('timerTitle').textContent=title;$('timerDescription').textContent=desc;updateClock()}
+function updateClock(){$('clock').textContent=formatDuration(timer.remaining);document.title=(timer.running?'▶ ':'')+formatDuration(timer.remaining)+' · LIFE OS'}
+function startTimer(){if(timer.running)return;if(timer.remaining<=0)timer.remaining=timer.total;timer.running=true;timer.interval=setInterval(()=>{timer.remaining--;updateClock();if(timer.remaining<=0){pauseTimer();$('timerTitle').textContent='시간 종료!';toast('타이머가 끝났어. 다음 일정으로 이동하자.');if(navigator.vibrate)navigator.vibrate([200,100,200])}},1000);updateClock()}
+function pauseTimer(){timer.running=false;if(timer.interval)clearInterval(timer.interval);timer.interval=null;updateClock()}
+$('startTimer').onclick=startTimer;$('pauseTimer').onclick=pauseTimer;$('resetTimer').onclick=()=>{pauseTimer();timer.remaining=timer.total;updateClock()};
+document.querySelectorAll('[data-timer]').forEach(b=>b.onclick=()=>{let sch=schedule(),now=new Date();if(b.dataset.timer==='game'){let [h,m]=sch.gameStart.split(':').map(Number),[eh,em]=sch.gameEnd.split(':').map(Number);setTimer(Math.max(60,(eh*60+em-h*60-m)*60),'game','일요일 게임 타이머',`${sch.gameStart}–${sch.gameEnd} · 게임 시간 지키기`)}else{let [h,m]=sch.studyLeave.split(':').map(Number);let end=new Date();end.setHours(h,m,0,0);let sec=Math.max(60,Math.floor((end-now)/1000));setTimer(sec,'free','평일 자유시간 타이머',`독서실 출발 ${sch.studyLeave} · 즐겁게 쉬고 제시간에 출발`)}toast('타이머 설정 완료')});
+document.querySelectorAll('[data-minutes]').forEach(b=>b.onclick=()=>{let n=Number(b.dataset.minutes);setTimer(n*60,'break',`${n}분 휴식 타이머`,`짧게 쉬고 다시 일상으로`);toast(`${n}분 타이머 설정`)});
+$('exportData').onclick=()=>{let blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='life-os-backup-'+dateKey()+'.json';a.click();URL.revokeObjectURL(a.href);toast('백업 파일을 만들었어')};
+$('importBtn').onclick=()=>$('importFile').click();$('importFile').onchange=async e=>{try{let obj=JSON.parse(await e.target.files[0].text());if(!obj.days||!obj.schedule)throw Error();data=obj;persist();renderAll();toast('백업 불러오기 완료')}catch(err){alert('올바른 LIFE OS 백업 파일이 아니야.')}};
+$('clearAll').onclick=()=>{if(confirm('모든 루틴 기록과 메모를 삭제할까? 이 작업은 되돌릴 수 없어.')){localStorage.removeItem('lifeos-v1');data=loadData();renderAll();toast('모든 데이터 삭제 완료')}};
+if('serviceWorker' in navigator && location.protocol.startsWith('http'))navigator.serviceWorker.register('./sw.js').catch(()=>{});
+renderAll();
+</script>
+</body></html>

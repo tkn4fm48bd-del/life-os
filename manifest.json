@@ -1,0 +1,10 @@
+{
+  "name": "LIFE OS · 갓생 관리",
+  "short_name": "LIFE OS",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#0b1020",
+  "theme_color": "#111827",
+  "description": "위생·그루밍·생활 루틴을 관리하는 개인용 앱",
+  "icons": []
+}
